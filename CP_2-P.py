@@ -90,7 +90,14 @@ def prueba(x:list, y:list):
     tacum = Tacum(c, d)
     fcc = FCC()
     w18 = W18(A(1), B(3), FC(fcc, 0.09, 0.42), tpd, tacum)
-    return w18
+    if w18 > 5*(10**6):
+        print('\nNivel de tránsito 3 Base granular tipo A')
+    elif 5*(10 ** 5) < w18 < 5*(10 ** 6):
+        print('\nNivel de tránsito 2 Base granular tipo B')
+    else:
+        print('\nNivel de tránsito 2 Base granular tipo B')
+    return f'Numero de ejes equivalentes {w18}'
+
 
 
 
@@ -101,5 +108,5 @@ y = [2322, 2327, 2368, 2472, 2682, 2789]
 
 print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
 
-
+print(prueba(x,y))
 
