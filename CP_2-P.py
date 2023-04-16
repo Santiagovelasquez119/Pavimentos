@@ -9,10 +9,10 @@ def graficar(x: list, y: list):
     plt.plot(x, y, marker='.', color='k', ls='', label='Datos históricos')
 
     a, b = ajuste_lineal(x,y)[1], ajuste_lineal(x,y)[0]
-    plt.plot(x, a+b*x, marker='.', color='r', ls='--', label=f'Ajuste lineal: y={a}+{b}X')
+    plt.plot(x, a+b*x, marker='.', color='r', ls='-', label=f'Ajuste lineal: y={a}+{b}X')
 
     c, d = ajuste_log(x,y)
-    plt.plot(x, c*(d**x), marker='.', color='b', ls='--', label=f'Ajuste log: y={c}*{d}^X')
+    plt.plot(x, c*(d**x), marker='.', color='b', ls='-', label=f'Ajuste log: y={c}*{d}^X')
 
     plt.grid(ls="--")
     plt.xlabel('Factor de equivalencia')
@@ -75,7 +75,8 @@ def FCC():
     mc5 = int(input('Ingrese la fracción correspondiente a la categoría >C5: '))/totalcamion
     return (c2p*1.11+c2g*2.34+c3c4*5.62+c5*7.44+mc5*7.09)
 
-def FC(FCC: float, cam:float, bus: float):
+
+def FC(FCC: float):
     cam = float(input('Ingrese el procentaje de camiones: '))/100
     bus = float(input('Ingrese el procentaje de buses: '))/100
     return (FCC*cam+0.79*bus)/(cam+bus)
@@ -85,11 +86,16 @@ def W18(A: float, B: float, FC: float, TPD: float, Tacum: float):
 
 def prueba(x:list, y:list):
     a,b = ajuste_lineal(x, y)
+    print(f'a={a} b={b}')
     c,d = ajuste_log(x, y)
+    print(f'c={c} d={d}')
     tpd = TPD(c, d)
+    print(f'tpd={tpd}')
     tacum = Tacum(c, d)
+    print(f'tacum={tacum}')
     fcc = FCC()
-    w18 = W18(A(1), B(3), FC(fcc, 0.09, 0.42), tpd, tacum)
+    print(f'fcc={fcc}')
+    w18 = W18(A(1), B(3), FC(fcc), tpd, tacum)
     if w18 > 5*(10**6):
         print('\nNivel de tránsito 3 Base granular tipo A')
     elif 5*(10 ** 5) < w18 < 5*(10 ** 6):
@@ -103,10 +109,16 @@ def prueba(x:list, y:list):
 
 ##------------------------------------------------------------------------------------##
 
-x = [0, 1, 2, 3, 4, 5]
-y = [2322, 2327, 2368, 2472, 2682, 2789]
+x = [0, 1, 2, 3, 4, 5, 6, 7]
+y = [4644, 8476, 15918, 27569, 17799, 21020, 18461, 20797]
 
 print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
+print()
+
+graficar(x,y)
 
 print(prueba(x,y))
+
+
+#print(prueba(x,y))
 
