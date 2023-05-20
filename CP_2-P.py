@@ -1,5 +1,5 @@
 #coding=utf8
-#import numpy as np
+import numpy as np
 def graficar(x: list, y: list):
     import matplotlib.pyplot as plt
     import numpy as np
@@ -11,7 +11,7 @@ def graficar(x: list, y: list):
     a, b = ajuste_lineal(x, y)[1], ajuste_lineal(x,y)[0]
     plt.plot(x, a+b*x, marker='.', color='r', ls='-', label=f'Ajuste lineal: y={a}+{b}x')
 
-    c, d = ajuste_log(x,y)
+    c, d = ajuste_exp(x,y)
     plt.plot(x, c*(d**x), marker='.', color='b', ls='-', label=f'Ajuste log: y=({c})({d}^x)')
 
     plt.grid(ls="--")
@@ -24,27 +24,29 @@ def graficar(x: list, y: list):
 def ajuste_lineal(x:list, y:list):
     import numpy as np
     ajuste = np.polyfit(x, y, 1)
-    a = round(ajuste[0], 2)
-    b = round(ajuste[1], 2)
+    a = ajuste[0]
+    b = ajuste[1]
     return [a, b]
 
 
-def ajuste_log(x:list, y:list):
+def ajuste_exp(x:list, y:list):
     import numpy as np
     ajuste = np.polyfit(x,np.log10(y),1)
     al, bl = ajuste[1], ajuste[0]
-    al, bl = round(10**al,3), round(10**bl, 3)
+    al, bl = 10**al, 10**bl
     return [al, bl]
 
 
-def TPD(a:float, b:float):
+def TPD(Ti:float, Tcrecimiento:float):
     n = float(input('Ingrese el año de inicio de operacion del proyecto: '))
-    return a*(b**n)
+    print(Ti)
+    print(Tcrecimiento)
+    return (Ti)*(Tcrecimiento**n)
 
 def Tacum(a:float, b:float):
     import numpy as np
     n = float(input('Ingrese el año del periodo de diseño del proyecto: '))
-    return a*((b**n-1)/(np.log(b)))
+    return ((b**n)-1)/(np.log(b))
 
 def A():
     #Factor de distribución direccional
@@ -97,7 +99,7 @@ def niveltransito(w18: float):
 
 def prueba(x:list, y:list):
     a,b = ajuste_lineal(x, y)
-    c,d = ajuste_log(x, y)
+    c,d = ajuste_exp(x, y)
     tpd = TPD(c, d)
     tacum = Tacum(c, d)
     fcc = FCC()
@@ -124,14 +126,16 @@ def prueba(x:list, y:list):
 
 ##------------------------------------------------------------------------------------##
 
-x = [0, 1, 2, 3, 4, 5, 6, 7]
-y = [4644, 8476, 15918, 27569, 17799, 21020, 18461, 20797]
+x = [0, 1, 2, 3, 4, 5]
+y = [2322, 2327, 2368, 2472, 2682, 2789]
 
-#print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
+
+print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
 
 #graficar(x,y)
 
 prueba(x,y)
 
+#print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
 
 
