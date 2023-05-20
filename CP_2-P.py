@@ -1,18 +1,18 @@
 #coding=utf8
-import numpy as np
+#import numpy as np
 def graficar(x: list, y: list):
     import matplotlib.pyplot as plt
     import numpy as np
-    x,y = np.array(x), np.array(y)
+    x, y = np.array(x), np.array(y)
     plt.figure()
     plt.title('Serie histórica de TPD')
-    plt.plot(x, y, marker='.', color='k', ls='', label='Datos históricos')
+    plt.plot(x, y, marker='o', color='k', ls='', label='Datos históricos')
 
-    a, b = ajuste_lineal(x,y)[1], ajuste_lineal(x,y)[0]
-    plt.plot(x, a+b*x, marker='.', color='r', ls='-', label=f'Ajuste lineal: y={a}+{b}X')
+    a, b = ajuste_lineal(x, y)[1], ajuste_lineal(x,y)[0]
+    plt.plot(x, a+b*x, marker='.', color='r', ls='-', label=f'Ajuste lineal: y={a}+{b}x')
 
     c, d = ajuste_log(x,y)
-    plt.plot(x, c*(d**x), marker='.', color='b', ls='-', label=f'Ajuste log: y={c}*{d}^X')
+    plt.plot(x, c*(d**x), marker='.', color='b', ls='-', label=f'Ajuste log: y=({c})({d}^x)')
 
     plt.grid(ls="--")
     plt.xlabel('Factor de equivalencia')
@@ -23,10 +23,10 @@ def graficar(x: list, y: list):
 
 def ajuste_lineal(x:list, y:list):
     import numpy as np
-    ajuste = np.polyfit(x,y,1)
-    a = round(ajuste[0],2)
-    b = round(ajuste[1],2)
-    return [a,b]
+    ajuste = np.polyfit(x, y, 1)
+    a = round(ajuste[0], 2)
+    b = round(ajuste[1], 2)
+    return [a, b]
 
 
 def ajuste_log(x:list, y:list):
@@ -46,16 +46,19 @@ def Tacum(a:float, b:float):
     n = float(input('Ingrese el año del periodo de diseño del proyecto: '))
     return a*((b**n-1)/(np.log(b)))
 
-def A(n:int):
+def A():
     #Factor de distribución direccional
+    print('Ingrese 0 para A=0.5 o ingrese 1 para A=0.55')
+    n = int(input('Ingrese el valor de distribución direccional: '))
     if n == 0 or n==1:
         if n==0:
             return 0.5
         else:
             return 0.55
 
-def B(c:int):
+def B():
     #Factor carril
+    c = int(input('Ingrese el número de carriles: '))
     if c == 1:
         return 1
     elif c == 2:
@@ -81,44 +84,54 @@ def FC(FCC: float):
     bus = float(input('Ingrese el procentaje de buses: '))/100
     return (FCC*cam+0.79*bus)/(cam+bus)
 
-def W18(A: float, B: float, FC: float, TPD: float, Tacum: float):
-    return A*B*FC*TPD*365*Tacum
+def W18(FA: float, FB: float, FC: float, TPD: float, Tacum: float):
+    return FA*FB*FC*TPD*365*Tacum
+
+def niveltransito(w18: float):
+    if w18 > 5*(10**6):
+        return 'Nivel de tránsito 3 Base granular tipo A'
+    elif 5*(10 ** 5) < w18 < 5*(10 ** 6):
+        return 'Nivel de tránsito 2 Base granular tipo B'
+    else:
+        return 'Nivel de tránsito 2 Base granular tipo B'
 
 def prueba(x:list, y:list):
     a,b = ajuste_lineal(x, y)
-    print(f'a={a} b={b}')
     c,d = ajuste_log(x, y)
-    print(f'c={c} d={d}')
     tpd = TPD(c, d)
-    print(f'tpd={tpd}')
     tacum = Tacum(c, d)
-    print(f'tacum={tacum}')
     fcc = FCC()
-    print(f'fcc={fcc}')
-    w18 = W18(A(1), B(3), FC(fcc), tpd, tacum)
-    if w18 > 5*(10**6):
-        print('\nNivel de tránsito 3 Base granular tipo A')
-    elif 5*(10 ** 5) < w18 < 5*(10 ** 6):
-        print('\nNivel de tránsito 2 Base granular tipo B')
-    else:
-        print('\nNivel de tránsito 2 Base granular tipo B')
-    return f'Numero de ejes equivalentes {w18}'
+    FA = A()
+    FB = B()
+    fc = FC(fcc)
+    w18 = W18(FA, FB, fc, tpd, tacum)
 
-
-
+    def reporte():
+        print('\n-------------------------------------')
+        print('Reporte de resultados\n')
+        print(f'Ajuste lineal: {a}+{b}*x')
+        print(f'Ajuste logarítmico: ({c})({d}^x)')
+        print(f'Factor de distribución direccional: {FA}')
+        print(f'Factor carril: {FB}')
+        print(f'TPD: {tpd}')
+        print(f'TPD acumulado: {tacum}')
+        print(f'Factor camión camión: {fcc}')
+        print(f'Factor camión: {fc}')
+        print(f'Ejes equivalentes: {w18}')
+        print(niveltransito(w18))
+        print('-------------------------------------')
+    reporte()
 
 ##------------------------------------------------------------------------------------##
 
 x = [0, 1, 2, 3, 4, 5, 6, 7]
 y = [4644, 8476, 15918, 27569, 17799, 21020, 18461, 20797]
 
-print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
-print()
+#print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
 
-graficar(x,y)
+#graficar(x,y)
 
-print(prueba(x,y))
+prueba(x,y)
 
 
-#print(prueba(x,y))
 
