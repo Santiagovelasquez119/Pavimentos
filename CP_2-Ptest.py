@@ -70,19 +70,19 @@ def B():
 
 
 def FCC():
-    totalcamion = int(input('Ingrese el total de camiones: '))
-    c2p = int(input('Ingrese la fracción correspondiente a la categoría C2P: '))/totalcamion
-    c2g = int(input('Ingrese la fracción correspondiente a la categoría C2G: '))/totalcamion
-    c3c4 = int(input('Ingrese la fracción correspondiente a la categoría C3-C4: '))/totalcamion
-    c5 = int(input('Ingrese la fracción correspondiente a la categoría C5: '))/totalcamion
-    mc5 = int(input('Ingrese la fracción correspondiente a la categoría >C5: '))/totalcamion
-    return (c2p*1.11+c2g*2.34+c3c4*5.62+c5*7.44+mc5*7.09)
+    #totalcamion = int(input('Ingrese el total de camiones: '))
+    c2p = float(input('Ingrese la fracción correspondiente a la categoría C2P: '))#/totalcamion
+    c2g = float(input('Ingrese la fracción correspondiente a la categoría C2G: '))#/totalcamion
+    c3c4 = float(input('Ingrese la fracción correspondiente a la categoría C3-C4: '))#/totalcamion
+    c5 = float(input('Ingrese la fracción correspondiente a la categoría C5: '))#/totalcamion
+    mc5 = float(input('Ingrese la fracción correspondiente a la categoría >C5: '))#/totalcamion
+    return (c2p*1.5+c2g*3.2+c3c4*4.72+c5*6.15+mc5*5.08)
 
 
 def FC(FCC: float):
     cam = float(input('Ingrese el procentaje de camiones: '))/100
     bus = float(input('Ingrese el procentaje de buses: '))/100
-    return (FCC*cam+0.79*bus)/(cam+bus)
+    return (FCC*cam+0.9*bus)/(cam+bus)
 
 def W18(FA: float, FB: float, FC: float, TPD: float, Tacum: float):
     return FA*FB*FC*TPD*365*Tacum/ajuste_exp(x,y)[0]
@@ -125,11 +125,10 @@ def prueba(x:list, y:list):
 ##------------------------------------------------------------------------------------##
 
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-y = [1885,2745,1626,1926,1811,1684,	1392,2278,2199,	2361,2600,2969,2784,2564,2863,2584,2545,3077,2253]
+y = [1885,2745,1626,1926,1811,1684,1392,2278,2199,2361,2600,2969,2784,2564,2863,2584,2545,3077,2253]
 
 a = [0, 1, 2, 3, 4, 5]
 b = [2322, 2327, 2368, 2472, 2682, 2789]
-
 
 #print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
 
@@ -137,6 +136,7 @@ b = [2322, 2327, 2368, 2472, 2682, 2789]
 
 prueba(x,y)
 
-#print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
+print(ajuste_exp(x,y))
+print(ajuste_lineal(x,y))
 
 
