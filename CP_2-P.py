@@ -39,7 +39,8 @@ def ajuste_exp(x:list, y:list):
 
 def TPD(Ti:float, Tcrecimiento:float):
     n = float(input('Ingrese el año de inicio de operacion del proyecto: '))
-    return (Ti)*(Tcrecimiento**n)
+    tpd = round((Ti)*(Tcrecimiento**n))
+    return tpd
 
 def Tacum(a:float, b:float):
     import numpy as np
@@ -96,9 +97,10 @@ def niveltransito(w18: float):
         return 'Nivel de tránsito 2 Base granular tipo B'
 
 def prueba(x:list, y:list):
+
     a,b = ajuste_lineal(x, y)
     c,d = ajuste_exp(x, y)
-    tpd = TPD(c, d)
+    tpd = round(TPD(c, d))
     tacum = Tacum(c, d)
     fcc = FCC()
     FA = A()
@@ -135,8 +137,8 @@ b = [2322, 2327, 2368, 2472, 2682, 2789]
 
 #graficar(x,y)
 
-prueba(x,y)
+#prueba(x,y)
 
-#print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
+print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
 
 

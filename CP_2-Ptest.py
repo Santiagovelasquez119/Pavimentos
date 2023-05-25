@@ -131,10 +131,10 @@ a = [0, 1, 2, 3, 4, 5]
 b = [2322, 2327, 2368, 2472, 2682, 2789]
 
 #print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
-
+#https://github.com/Santiagovelasquez119/Pavimentos.git
 #graficar(x,y)
 
-prueba(x,y)
+#prueba(x,y)
 
 print(ajuste_exp(x,y))
 print(ajuste_lineal(x,y))
