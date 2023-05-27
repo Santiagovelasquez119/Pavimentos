@@ -148,7 +148,13 @@ b = [2322, 2327, 2368, 2472, 2682, 2789]
 #print(0.55*0.7*4950*3.43*365*(((1.040**15)-1)/np.log(1.040)))
 
 #graficar(x,y)
-FECE()
+#FECE()
+print(f'El FECE para C2P = {FECE()[0]}')
+print(f'El FECE para C2G = {FECE()[1]}')
+print(f'El FECE para C3C4 = {FECE()[2]}')
+print(f'El FECE para C5 = {FECE()[3]}')
+print(f'El FECE para >C5 = {FECE()[4]}')
+print(f'El FECE para Bus = {FECE()[5]}')
 
 #prueba(x,y)
 
