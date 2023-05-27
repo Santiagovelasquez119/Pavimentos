@@ -1,5 +1,8 @@
 #coding=utf8
 #import numpy as np
+import math
+
+
 def graficar(x: list, y: list):
     import matplotlib.pyplot as plt
     import numpy as np
@@ -39,7 +42,7 @@ def ajuste_exp(x:list, y:list):
 
 def TPD(Ti:float, Tcrecimiento:float):
     n = float(input('Ingrese el año de inicio de operacion del proyecto: '))
-    return (Ti)*(Tcrecimiento**n)
+    return math.ceil(Ti*(Tcrecimiento**n))
 
 def Tacum(a:float, b:float):
     import numpy as np
@@ -134,9 +137,6 @@ b = [2322, 2327, 2368, 2472, 2682, 2789]
 #https://github.com/Santiagovelasquez119/Pavimentos.git
 #graficar(x,y)
 
-#prueba(x,y)
-
-print(ajuste_exp(x,y))
-print(ajuste_lineal(x,y))
+prueba(x,y)
 
 

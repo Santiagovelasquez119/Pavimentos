@@ -1,5 +1,8 @@
 #coding=utf8
 #import numpy as np
+import math
+
+
 def graficar(x: list, y: list):
     import matplotlib.pyplot as plt
     import numpy as np
@@ -39,7 +42,7 @@ def ajuste_exp(x:list, y:list):
 
 def TPD(Ti:float, Tcrecimiento:float):
     n = float(input('Ingrese el año de inicio de operacion del proyecto: '))
-    tpd = round((Ti)*(Tcrecimiento**n))
+    tpd = math.ceil((Ti)*(Tcrecimiento**n))
     return tpd
 
 def Tacum(a:float, b:float):
@@ -137,8 +140,10 @@ b = [2322, 2327, 2368, 2472, 2682, 2789]
 
 #graficar(x,y)
 
-#prueba(x,y)
+prueba(x,y)
 
-print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
+#print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
+#print(ajuste_exp(x,y))
+#print(TPD(ajuste_exp(x,y)[0], ajuste_exp(x,y)[1]))
 
 
