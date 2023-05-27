@@ -77,7 +77,7 @@ def FCC():
     c3c4 = float(input('Ingrese la fracción correspondiente a la categoría C3-C4: '))#/totalcamion
     c5 = float(input('Ingrese la fracción correspondiente a la categoría C5: '))#/totalcamion
     mc5 = float(input('Ingrese la fracción correspondiente a la categoría >C5: '))#/totalcamion
-    return (c2p*1.5+c2g*3.2+c3c4*4.72+c5*6.15+mc5*5.08)
+    return (c2p*+c2g*3.2+c3c4*4.72+c5*6.15+mc5*5.08)
 
 
 def FC(FCC: float):
